@@ -1,0 +1,53 @@
+{
+  "name": "watchdock-errors-browser",
+  "version": "0.1.0",
+  "description": "Watchdock error tracking SDK for browser and React frontends",
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicksonlangat/watchdock-errors-browser.git"
+  },
+  "homepage": "https://github.com/nicksonlangat/watchdock-errors-browser#readme",
+  "bugs": {
+    "url": "https://github.com/nicksonlangat/watchdock-errors-browser/issues"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./react": {
+      "types": "./dist/integrations/react.d.ts",
+      "default": "./dist/integrations/react.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "react": "^18.3.1",
+    "typescript": "^5.9.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
