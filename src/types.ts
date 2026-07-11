@@ -46,6 +46,7 @@ export interface WatchdockEventPayload {
   environment?: string;
   level?: string;
   release?: string;
+  trace_id?: string;
   exception: WatchdockExceptionPayload;
   request?: WatchdockRequestPayload;
   user?: WatchdockUserPayload;
@@ -64,6 +65,13 @@ export interface WatchdockCaptureContext {
   environment?: string;
   level?: string;
   release?: string;
+  /**
+   * Correlation ID linking this event to a server-side request (e.g. an
+   * `X-Request-Id` your backend echoed back in a response header). The
+   * browser SDK has no incoming request to read this from automatically —
+   * attach it manually if you have one.
+   */
+  trace_id?: string;
   request?: WatchdockRequestPayload;
   user?: WatchdockUserPayload;
   server?: WatchdockServerPayload;

@@ -119,6 +119,21 @@ Waits for any queued sends to finish. Useful before navigating away or unmountin
 
 Every event carries a `level`. `captureException` defaults to `"error"`; `captureMessage` defaults to `"info"`. Override either via `context.level`.
 
+## Correlating with backend requests
+
+Unlike the Node/Python/Go SDKs, the browser SDK has no incoming request to auto-extract a correlation ID from — the browser is the one making requests, not receiving them. If your backend echoes back its request ID (the same `X-Request-Id` nginx generates — see the [nginx log collection docs](https://watchdock.cc/docs/nginx-log-collection)) in a response header, attach it manually:
+
+```ts
+const response = await fetch("/api/checkout", { method: "POST", body });
+if (!response.ok) {
+  captureException(new Error("Checkout failed"), {
+    trace_id: response.headers.get("X-Request-Id") ?? undefined,
+  });
+}
+```
+
+This links the failed request to the exact exception your backend's `watchdock-errors` SDK captured for it. Requires `Access-Control-Expose-Headers: X-Request-Id` on the response if the request is cross-origin.
+
 ## Notes
 
 - The SDK authenticates with `Authorization: Bearer wdk_...`.
