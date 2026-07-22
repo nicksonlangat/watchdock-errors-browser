@@ -2,6 +2,11 @@ export interface WatchdockStackFrame {
   filename: string;
   function?: string;
   lineno?: number;
+  // Column of the failing token. In minified production bundles every frame is
+  // on line 1, so the column is what actually distinguishes one call site from
+  // another and is required to resolve a frame back to original source via a
+  // source map. Captured client-side; symbolication happens server-side.
+  colno?: number;
   context_line?: string;
 }
 

@@ -61,6 +61,7 @@ function parseStackLine(line: string): WatchdockStackFrame | null {
       function: match[1],
       filename: normalizeFilename(match[2]),
       lineno: Number(match[3]),
+      colno: Number(match[4]),
     };
   }
 
@@ -69,6 +70,7 @@ function parseStackLine(line: string): WatchdockStackFrame | null {
     return {
       filename: normalizeFilename(match[1]),
       lineno: Number(match[2]),
+      colno: Number(match[3]),
     };
   }
 
@@ -80,6 +82,7 @@ function parseStackLine(line: string): WatchdockStackFrame | null {
       function: match[1] || undefined,
       filename: normalizeFilename(match[2]),
       lineno: Number(match[3]),
+      colno: Number(match[4]),
     };
   }
 
