@@ -137,8 +137,8 @@ This links the failed request to the exact exception your backend's `watchdock-e
 ## Notes
 
 - The SDK authenticates with `Authorization: Bearer wdk_...`.
-- Request headers like `Authorization` and `Cookie` are always redacted if present.
-- When `sendPii` is `false`, the user's `email` is omitted (only `id`/`username` are sent).
+- Request headers like `Authorization`, `Cookie`, and `Set-Cookie` are always redacted if present.
+- When `sendPii` is `false`, the user's `email` is omitted (only `id`/`username` are sent), and sensitive-looking query-param/fragment values (names containing `token`, `secret`, `password`, `auth`, `key`, `session`, `credential`, `otp`, `pin`, `ssn`, etc.) are redacted in `query_params` and in the captured page `url` and `referrer` — including URL fragments like `#access_token=...` from OAuth implicit-flow callbacks and magic links, which never reach a server but are captured here since this SDK runs in the browser.
 - Stack traces are parsed across Chrome/V8, Firefox, and Safari stack formats.
 - On `init()`, the SDK schedules a one-time, fire-and-forget ping to the platform (with the SDK version and environment) to register that it started up. This never blocks startup and any failure is silently ignored.
 - Requires a browser environment (`window`) — for Node.js backends use [`watchdock-errors`](https://www.npmjs.com/package/watchdock-errors) instead.
